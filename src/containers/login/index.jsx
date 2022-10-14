@@ -1,12 +1,24 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import Cookies from "js-cookie";
 import "../../styles/common.css";
+import axios from "axios";
+import { authenticateUser } from "../../features/loginSlice";
+import { toast } from "react-toastify";
 
 const Login = () => {
+  Cookies.remove("movie_token");
   const navValues = useSelector((state) => state.navbar);
+  let token = useSelector((state) => state.user.token);
 
+  useEffect(() => {
+    redirectUser();
+  }, [token]);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [formError, setFormError] = useState({
     username: false,
     password: false,
@@ -31,6 +43,29 @@ const Login = () => {
     } else if (formValues.password === "") {
       setFormError({ ...formError, password: true });
       setMessage("Password is required");
+    } else {
+      getToken();
+    }
+  };
+
+  const getToken = async () => {
+    const response = await axios.get(
+      "https://api.themoviedb.org/3/authentication/token/new?api_key=8ec065dc5c7fd191cd99ead2b741b51f"
+    );
+    let token = response.data.request_token;
+    auth(token);
+  };
+
+  const auth = (token) => {
+    let authObj = { ...formValues, request_token: token };
+    dispatch(authenticateUser(authObj));
+  };
+
+  const redirectUser = () => {
+    if (token !== null) {
+      toast.success("Login successfull!");
+      Cookies.set("movie_token", token);
+      navigate("/home");
     }
   };
 
