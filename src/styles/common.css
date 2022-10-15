@@ -1,3 +1,9 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 .login-wrapper {
   height: 100vh;
   position: fixed;
@@ -10,6 +16,19 @@
   height: 92%;
   position: relative;
   top: 0;
+}
+
+.home-wrapper {
+  background: #0e171e;
+  padding: 100px 50px;
+  margin-top: -2px;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 30px;
 }
 
 .form-card-wrapper {
@@ -74,4 +93,14 @@
   padding: 22px 0;
   color: #fff;
   cursor: pointer;
+}
+
+.card-row {
+  margin: 0 -5px;
+}
+
+.card-row:after {
+  content: "";
+  display: table;
+  clear: both;
 }

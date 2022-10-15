@@ -1,0 +1,50 @@
+.card-wrapper {
+  float: left;
+  width: 25%;
+  padding: 0 20px;
+  margin-bottom: 30px;
+}
+
+.card-image img {
+  width: 100%;
+  height: 115px;
+}
+
+.card-wrapper .card-content h3 {
+  font-size: 16px;
+  color: #fff;
+  font-weight: 500;
+  margin-bottom: 10px;
+  line-height: 24px;
+}
+
+.card-content p {
+  color: #ccc;
+  font-size: 14px;
+}
+
+.card-wrapper .card-content {
+  padding: 10px 23px;
+  background: linear-gradient(0deg, #1a2b4a 0%, #2b507c 105.38%);
+}
+
+.card-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-content div:first-child {
+  width: 80%;
+}
+
+.card-content div:last-child {
+  width: 20%;
+  margin: auto;
+}
+
+.card-content div:last-child img {
+  display: block;
+  margin: auto;
+  cursor: pointer;
+  object-fit: contain;
+}

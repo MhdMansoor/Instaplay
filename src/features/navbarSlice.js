@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isLoggedIn: false,
   isSearch: false,
-  searchTerm: "",
 };
 
 const navbarSlice = createSlice({

@@ -10,7 +10,6 @@ const initialState = {
 export const authenticateUser = createAsyncThunk(
   "/users/authenticateUser",
   async (authObj) => {
-    console.log("authenticateUser called");
     let response = await axios.post(
       "https://api.themoviedb.org/3/authentication/token/validate_with_login?api_key=8ec065dc5c7fd191cd99ead2b741b51f",
       authObj
