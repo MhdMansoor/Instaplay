@@ -5,6 +5,7 @@ import { isLoggedInReducer, isSearchReducer } from "../../features/navbarSlice";
 import { fetchMovies } from "../../features/homeSlice";
 import Banner from "../../components/Banner";
 import Card from "../../components/Card";
+import Pagination from "../../components/Pagination";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -14,14 +15,15 @@ const Home = () => {
   const page = useSelector((state) => state.home.page);
   const totalPages = useSelector((state) => state.home.totalPages);
   const movies = useSelector((state) => state.home.movies);
-  const loading = useSelector((state) => state.home.isLoading);
+  const heading = useSelector((state) => state.home.heading);
+  console.log(totalPages);
 
-  useEffect(() => {
-    fetchPopularMovies();
+  useEffect((page) => {
+    fetchPopularMovies(page);
   }, []);
 
   const fetchPopularMovies = () => {
-    dispatch(fetchMovies());
+    dispatch(fetchMovies(page));
   };
 
   return (
@@ -29,12 +31,13 @@ const Home = () => {
       <Navbar isLoggedIn={navValues.isLoggedIn} isSearch={navValues.isSearch} />
       <Banner />
       <div className="home-wrapper">
-        {loading ? <h1>Fetching popular movies...</h1> : <h1>Trending </h1>}
+        <h1>{heading}</h1>
         <div className="card-row">
           {movies.map((movie, index) => {
             return <Card key={index} movie={movie} />;
           })}
         </div>
+        <Pagination totalPages={totalPages} />
       </div>
     </div>
   );

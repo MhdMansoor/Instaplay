@@ -1,0 +1,37 @@
+.paginationItem {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.paginationItem span {
+  color: #fff;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  opacity: 0.6;
+  outline: none;
+}
+
+.prev,
+.next {
+  cursor: pointer;
+}
+
+.paginationItem.active {
+  text-decoration-line: underline;
+  pointer-events: none;
+}
+
+.paginationItem.active span {
+  opacity: 1;
+  text-decoration-line: underline;
+  color: #ff6a63;
+}
+
+.prev.disabled,
+.next.disabled {
+  display: none;
+  pointer-events: none;
+  box-shadow: none;
+}
