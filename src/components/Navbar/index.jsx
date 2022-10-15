@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import instaLogo from "../../assets/images/instaLogo.png";
 import search from "../../assets/images/search.png";
 import { useDispatch } from "react-redux";
@@ -6,11 +6,19 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { isLogOutReducer } from "../../features/loginSlice";
 import { logReducer, searchReducer } from "../../features/navbarSlice";
+import { searchMovies } from "../../features/homeSlice";
 import "./navbar.css";
 
 const Navbar = ({ isLoggedIn, isSearch }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [searchTerm, setSearchTerm] = useState();
+  const handleChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+  const submitSearch = () => {
+    dispatch(searchMovies(searchTerm));
+  };
   const logOutUser = () => {
     dispatch(isLogOutReducer());
     dispatch(logReducer());
@@ -27,8 +35,13 @@ const Navbar = ({ isLoggedIn, isSearch }) => {
       <div className="search-bar">
         {isSearch && (
           <div className="search-input">
-            <input type="text" name="search" placeholder="Search movie" />
-            <button className="btn-search">
+            <input
+              type="text"
+              name="search"
+              placeholder="Search movie"
+              onChange={handleChange}
+            />
+            <button className="btn-search" onClick={submitSearch}>
               <img src={search} alt="search-icon" />
             </button>
           </div>

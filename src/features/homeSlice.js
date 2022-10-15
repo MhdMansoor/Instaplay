@@ -17,6 +17,18 @@ export const fetchMovies = createAsyncThunk("/fetch-movies", async () => {
   return data;
 });
 
+export const searchMovies = createAsyncThunk(
+  "/search-movies",
+  async (searchTerm) => {
+    let response = await axios.get(
+      `https://api.themoviedb.org/3/search/movie?api_key=8ec065dc5c7fd191cd99ead2b741b51f&language=en-US&query=${searchTerm}&include_adult=true`
+    );
+    let data = response.data;
+    console.log(data);
+    return data;
+  }
+);
+
 const homeSlice = createSlice({
   name: "home",
   initialState,
@@ -31,6 +43,19 @@ const homeSlice = createSlice({
       state.isLoading = true;
     },
     [fetchMovies.rejected]: (state) => {
+      state.isLoading = false;
+      state.movies = [];
+    },
+    [searchMovies.fulfilled]: (state, action) => {
+      state.movies = action.payload.results;
+      state.isLoading = false;
+      state.page = action.payload.page;
+      state.totalPages = action.payload.totalPages;
+    },
+    [searchMovies.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [searchMovies.rejected]: (state) => {
       state.isLoading = false;
       state.movies = [];
     },

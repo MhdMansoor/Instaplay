@@ -5,9 +5,13 @@
   margin-bottom: 30px;
 }
 
+.card-image {
+  height: 115px;
+  background: black;
+}
 .card-image img {
   width: 100%;
-  height: 115px;
+  height: 100%;
 }
 
 .card-wrapper .card-content h3 {
